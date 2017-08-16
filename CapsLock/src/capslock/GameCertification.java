@@ -36,6 +36,10 @@ public final class GameCertification {
         return ExecutablePath;
     }
     
+    public List<Path> getImagesPathList(){
+        return ImagesPathList;
+    }
+    
     public void dump(){
         System.out.println(uuid.toString());
         System.out.println(name);
