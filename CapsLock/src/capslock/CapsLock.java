@@ -49,6 +49,15 @@ public class CapsLock {
             return;
         }
         testlist.forEach(ele -> ((GameCertification)ele).dump());
+        
+        ProcessBuilder pb = new ProcessBuilder(testlist.get(0).getExecutablePath().toString());
+        //pb.redirectErrorStream(true);
+        //pb.redirectOutput(Redirect.appendTo(log));
+        try {
+            Process GameProcess = pb.start();
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
     }
     
 }
