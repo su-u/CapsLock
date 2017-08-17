@@ -38,6 +38,7 @@ public class CapsLock extends Application {
         MainFormController controller = (MainFormController)loader.getController();
         stage.setScene(new Scene(root));
         stage.setOnShowing((event) -> controller.onLoad(event));
+        stage.setTitle("CapsLock");
         stage.show();
     }
 }
