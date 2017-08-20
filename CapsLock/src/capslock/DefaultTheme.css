@@ -2,3 +2,10 @@
     -fx-background-color: #212425;
 }
 
+.v-box{
+    -fx-background-color: #999999;
+}
+
+.label{
+    -fx-text-fill: white;
+}

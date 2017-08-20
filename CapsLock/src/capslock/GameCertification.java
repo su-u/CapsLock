@@ -32,13 +32,9 @@ public final class GameCertification {
         MoviesPathList = BuildImmutableArray(record.getJSONArray("movie"));
     }
     
-    public Path getExecutablePath(){
-        return ExecutablePath;
-    }
-    
-    public List<Path> getImagesPathList(){
-        return ImagesPathList;
-    }
+    public String getName(){return name;}
+    public Path getExecutablePath(){return ExecutablePath;}
+    public List<Path> getImagesPathList(){return ImagesPathList;}
     
     public void dump(){
         System.out.println(uuid.toString());
