@@ -15,15 +15,6 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </TilePane>
-      <VBox fx:id="DisplayBox" onMouseClicked="#onGameClicked" onMouseExited="#onMouseExited" prefHeight="200.0" prefWidth="100.0" styleClass="v-box" visible="false">
-         <children>
-            <ImageView fx:id="GameSSView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="TitleLabel" text="Label" />
-            <Label fx:id="DiscriptionLabel" text="Label" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
+      <fx:include fx:id="GameDisplay" source="GameDisplayBox.fxml" />
    </children>
 </AnchorPane>

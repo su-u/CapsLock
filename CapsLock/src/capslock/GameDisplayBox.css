@@ -1,0 +1,15 @@
+.mainFxmlClass {
+
+}
+
+.v-box{
+    -fx-background-color: #999999;
+}
+
+.label{
+    -fx-text-fill: white;
+}
+
+#title-label{
+    -fx-font-size: 20px;
+}

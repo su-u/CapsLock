@@ -11,13 +11,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,14 +27,10 @@ import org.json.JSONObject;
 public class MainFormController implements Initializable {
 
     @FXML TilePane BaseTilePane;
-    @FXML VBox DisplayBox;
-    @FXML ImageView GameSSView;
-    @FXML Label TitleLabel;
-    @FXML Label DiscriptionLabel;
+    @FXML GameDisplayBoxController GameDisplayController;
     
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
-    private GameCertification SelectedGame;
 
     public MainFormController() {
         BufferedReader reader;
@@ -82,11 +74,13 @@ public class MainFormController implements Initializable {
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb){
+        System.out.println(GameDisplayController);
     }
     
     public void onLoad(WindowEvent event){
-        if(!IsGameMapped){         
+        if(!IsGameMapped){
+            
             try{
                 for(GameCertification game : GameList){
                     ImageView view = new ImageView(new Image(game.getImagesPathList().get(0).toUri().toString()));
@@ -94,13 +88,7 @@ public class MainFormController implements Initializable {
                     view.fitWidthProperty().setValue(150);
                     view.setOnMouseEntered((eve) -> {
                         final ImageView TriggerView = (ImageView)eve.getSource();
-                        SelectedGame = (GameCertification)TriggerView.getUserData();
-                        GameSSView.setImage(TriggerView.getImage());
-                        TitleLabel.setText(SelectedGame.getName());
-                        DiscriptionLabel.setText("discride");
-                        final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
-                        DisplayBox.relocate(point.getX(), point.getY());
-                        DisplayBox.visibleProperty().setValue(true);
+                        GameDisplayController.onImageFocused(TriggerView);
                     });
                     view.setUserData(game);
                     BaseTilePane.getChildren().add(view);
@@ -108,20 +96,6 @@ public class MainFormController implements Initializable {
             }catch(Exception e){
                 System.err.println(e);
             }
-        }
-    }
-    
-    @FXML
-    private void onMouseExited(MouseEvent ev){DisplayBox.visibleProperty().setValue(false);}
-    
-    @FXML
-    private void onGameClicked(MouseEvent ev){
-        ProcessBuilder pb = new ProcessBuilder(SelectedGame.getExecutablePath().toString());
-        pb.redirectErrorStream(true);
-        try {
-            Process GameProcess = pb.start();
-        } catch (IOException ex) {
-            System.out.println(ex);
         }
     }
 }
