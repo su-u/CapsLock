@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -32,9 +33,10 @@ public class GameDisplayBoxController implements Initializable {
 
     public void onImageFocused(ImageView view){
         game = (GameCertification)view.getUserData();
-        GameSSView.setImage(view.getImage());
+        Image SS = new Image(game.getImagesPathList().get(0).toUri().toString());
+        GameSSView.setImage(SS);
         TitleLabel.setText(game.getName());
-        DiscriptionLabel.setText("discride");
+        DiscriptionLabel.setText(game.getDescription());
         final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
         DisplayBox.relocate(point.getX(), point.getY());
         DisplayBox.visibleProperty().setValue(true);

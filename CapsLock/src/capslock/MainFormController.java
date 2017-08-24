@@ -83,7 +83,7 @@ public class MainFormController implements Initializable {
             
             try{
                 for(GameCertification game : GameList){
-                    ImageView view = new ImageView(new Image(game.getImagesPathList().get(0).toUri().toString()));
+                    ImageView view = new ImageView(new Image(game.getPanelPath().toUri().toString()));
                     view.fitHeightProperty().setValue(150);
                     view.fitWidthProperty().setValue(150);
                     view.setOnMouseEntered((eve) -> {
