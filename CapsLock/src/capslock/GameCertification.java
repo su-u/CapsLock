@@ -36,11 +36,14 @@ public final class GameCertification {
         MoviesPathList = BuildImmutableArray(record.getJSONArray("movie"));
     }
     
+    public UUID getUUID(){return uuid;}
     public String getName(){return name;}
     public String getDescription(){return description;}
     public Path getExecutablePath(){return ExecutablePath;}
+    public String getVersion(){return version;}
     public Path getPanelPath(){return PanelPath;}
     public List<Path> getImagesPathList(){return ImagesPathList;}
+    public List<Path> getMoviePathList(){return MoviesPathList;}
     
     public void dump(){
         System.out.println(uuid.toString());
