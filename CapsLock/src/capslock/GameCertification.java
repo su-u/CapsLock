@@ -18,29 +18,37 @@ import org.json.JSONObject;
 public final class GameCertification {
     private final UUID uuid;
     private final String name;
+    private final String description;
     private final Path ExecutablePath;
     private final String version;
+    private final Path PanelPath;
     private final List<Path> ImagesPathList;
     private final List<Path> MoviesPathList;
     
     public GameCertification(JSONObject record){
         uuid = UUID.fromString(record.getString("UUID"));
         name = record.getString("name");
+        description = record.getString("description");
         ExecutablePath = new File(record.getString("executable")).toPath();
         version = record.getString("version");
+        PanelPath = new File(record.getString("panel")).toPath();
         ImagesPathList = BuildImmutableArray(record.getJSONArray("image"));
         MoviesPathList = BuildImmutableArray(record.getJSONArray("movie"));
     }
     
     public String getName(){return name;}
+    public String getDescription(){return description;}
     public Path getExecutablePath(){return ExecutablePath;}
+    public Path getPanelPath(){return PanelPath;}
     public List<Path> getImagesPathList(){return ImagesPathList;}
     
     public void dump(){
         System.out.println(uuid.toString());
         System.out.println(name);
+        System.out.println(description);
         System.out.println(ExecutablePath.toString());
         System.out.println(version);
+        System.out.println(PanelPath);
         System.out.println(ImagesPathList);
         System.out.println(MoviesPathList);
     }
