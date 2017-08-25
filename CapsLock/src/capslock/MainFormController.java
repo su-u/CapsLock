@@ -26,6 +26,8 @@ import org.json.JSONObject;
  */
 public class MainFormController implements Initializable {
 
+    private static final double TileSizeScale = 2.5;
+    
     @FXML TilePane BaseTilePane;
     @FXML GameDisplayBoxController GameDisplayController;
     
@@ -80,12 +82,18 @@ public class MainFormController implements Initializable {
     
     public void onLoad(WindowEvent event){
         if(!IsGameMapped){
+            final double PanelImageSideLength;
+            {
+                final double width = BaseTilePane.getWidth() / TileSizeScale;
+                final double height = BaseTilePane.getHeight() / TileSizeScale;
+                PanelImageSideLength = Double.min(width, height);
+            }
             
             try{
                 for(GameCertification game : GameList){
                     ImageView view = new ImageView(new Image(game.getPanelPath().toUri().toString()));
-                    view.fitHeightProperty().setValue(150);
-                    view.fitWidthProperty().setValue(150);
+                    view.fitHeightProperty().setValue(PanelImageSideLength);
+                    view.fitWidthProperty().setValue(PanelImageSideLength);
                     view.setOnMouseEntered((eve) -> {
                         final ImageView TriggerView = (ImageView)eve.getSource();
                         GameDisplayController.onImageFocused(TriggerView);

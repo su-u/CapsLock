@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -37,6 +38,7 @@ public class GameDisplayBoxController implements Initializable {
         GameSSView.setImage(SS);
         TitleLabel.setText(game.getName());
         DiscriptionLabel.setText(game.getDescription());
+        InitVBoxSize();
         final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
         DisplayBox.relocate(point.getX(), point.getY());
         DisplayBox.visibleProperty().setValue(true);
@@ -54,5 +56,12 @@ public class GameDisplayBoxController implements Initializable {
         } catch (IOException ex) {
             System.out.println(ex);
         }
+    }
+    
+    private void InitVBoxSize(){
+        final AnchorPane ParentPane = (AnchorPane)DisplayBox.getParent();
+        final double width = ParentPane.getWidth() / 2;
+        final double height = ParentPane.getHeight() / 2;
+        DisplayBox.setPrefSize(width, height);
     }
 }
