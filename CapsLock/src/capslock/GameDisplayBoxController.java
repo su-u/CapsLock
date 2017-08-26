@@ -2,7 +2,15 @@ package capslock;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
@@ -12,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -22,6 +31,10 @@ public class GameDisplayBoxController implements Initializable {
 
     private GameCertification game;
     
+    private Timeline ImageTimeLine;
+    private List<Image> ImageList = new ArrayList();
+    private Iterator<Image> ImageIterator;
+    
     @FXML VBox DisplayBox;
     @FXML ImageView GameSSView;
     @FXML Label TitleLabel;
@@ -29,7 +42,10 @@ public class GameDisplayBoxController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ImageTimeLine = new Timeline(new KeyFrame(
+        Duration.millis(2500),
+        ae -> UpdateImage(ae)));
+        ImageTimeLine.setCycleCount(Animation.INDEFINITE);
     }
 
     public void onImageFocused(ImageView view){
@@ -41,11 +57,20 @@ public class GameDisplayBoxController implements Initializable {
         InitVBoxSize();
         final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
         DisplayBox.relocate(point.getX(), point.getY());
+        
+        game.getImagesPathList().forEach(path -> ImageList.add(new Image(path.toUri().toString())));
+        ImageIterator = ImageList.listIterator();
         DisplayBox.visibleProperty().setValue(true);
+        
+        ImageTimeLine.play();
     }
     
     @FXML
-    private void onMouseExited(MouseEvent ev){DisplayBox.visibleProperty().setValue(false);}
+    private void onMouseExited(MouseEvent ev){
+        DisplayBox.visibleProperty().setValue(false);
+        ImageTimeLine.stop();
+        ImageList.clear();
+    }
     
     @FXML
     private void onGameClicked(MouseEvent ev){
@@ -63,5 +88,15 @@ public class GameDisplayBoxController implements Initializable {
         final double width = ParentPane.getWidth() / 2;
         final double height = ParentPane.getHeight() / 2;
         DisplayBox.setPrefSize(width, height);
+    }
+    
+    private void UpdateImage(ActionEvent event){
+        try{
+            GameSSView.setImage(ImageIterator.next());
+        }catch(NoSuchElementException ex){
+            ImageIterator = ImageList.iterator();
+            GameSSView.setImage(ImageList.get(0));
+        }
+        System.err.println("timer");
     }
 }
