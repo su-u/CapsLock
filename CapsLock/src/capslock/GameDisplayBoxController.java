@@ -64,6 +64,10 @@ public class GameDisplayBoxController implements Initializable {
     }
 
     public void onImageFocused(ImageView view){
+        if(game != null){
+            onMouseExited(null);
+        }
+        
         game = (GameCertification)view.getUserData();
         TitleLabel.setText(game.getName());
         DiscriptionLabel.setText(game.getDescription());
@@ -127,6 +131,7 @@ public class GameDisplayBoxController implements Initializable {
         }
         GameMediaView.setMediaPlayer(null);
         MovieList.clear();
+        game = null;
     }
     
     @FXML
