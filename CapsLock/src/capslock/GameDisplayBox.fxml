@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.media.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -11,7 +12,12 @@
 
 <VBox fx:id="DisplayBox" onMouseClicked="#onGameClicked" onMouseExited="#onMouseExited" styleClass="v-box" stylesheets="@GameDisplayBox.css" visible="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capslock.GameDisplayBoxController">
    <children>
-      <ImageView fx:id="GameSSView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <MediaView fx:id="GameMediaView" disable="true" fitHeight="200.0" fitWidth="200.0" />
+            <ImageView fx:id="GameSSView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </StackPane>
       <Label id="title-label" fx:id="TitleLabel" text="Label" />
       <Label fx:id="DiscriptionLabel" text="Label" />
    </children>

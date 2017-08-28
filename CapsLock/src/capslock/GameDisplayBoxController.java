@@ -20,6 +20,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
 /**
@@ -28,15 +31,27 @@ import javafx.util.Duration;
  * @author RISCassembler
  */
 public class GameDisplayBoxController implements Initializable {
+    
+    private enum State{
+        None,
+        ImageOnly,
+        MediaOnly,
+        Both_Image,
+        Both_Media
+    }
 
     private GameCertification game;
     
     private Timeline ImageTimeLine;
     private List<Image> ImageList = new ArrayList();
     private Iterator<Image> ImageIterator;
+    private List<Media> MovieList = new ArrayList();
+    
+    private State DisplayState;
     
     @FXML VBox DisplayBox;
     @FXML ImageView GameSSView;
+    @FXML MediaView GameMediaView;
     @FXML Label TitleLabel;
     @FXML Label DiscriptionLabel;
     
@@ -50,26 +65,68 @@ public class GameDisplayBoxController implements Initializable {
 
     public void onImageFocused(ImageView view){
         game = (GameCertification)view.getUserData();
-        Image SS = new Image(game.getImagesPathList().get(0).toUri().toString());
-        GameSSView.setImage(SS);
         TitleLabel.setText(game.getName());
         DiscriptionLabel.setText(game.getDescription());
+
+        
+        byte Flags = 0;
+        
+        game.getImagesPathList().forEach(path -> ImageList.add(new Image(path.toUri().toString())));
+        game.getMoviePathList().forEach(path -> MovieList.add(new Media(path.toUri().toString())));
+        
+        if(!ImageList.isEmpty())Flags = 0b1;
+        if(!MovieList.isEmpty())Flags += 0b10; 
+        
+        switch(Flags){
+            case 0:
+                DisplayState = State.None;
+                break;
+            case 0b1:
+                DisplayState = State.ImageOnly;
+                ImageSet();
+                break;
+            case 0b10:
+                DisplayState = State.MediaOnly;
+
+                MediaPlayer mediaPlayer = new MediaPlayer(MovieList.get(0));
+                mediaPlayer.setAutoPlay(true);
+                
+                GameMediaView.setMediaPlayer(mediaPlayer);
+                GameSSView.setVisible(false);
+                GameMediaView.setVisible(true);
+                GameMediaView.toFront();
+                
+                break;
+                
+            case 0b11:
+                DisplayState = State.Both_Image;
+                ImageSet();
+                break;
+
+            default:
+                System.err.println("critical ; unexpected flag");
+        }
+        
+         DisplayBox.visibleProperty().setValue(true);
+        
         InitVBoxSize();
         final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
         DisplayBox.relocate(point.getX(), point.getY());
-        
-        game.getImagesPathList().forEach(path -> ImageList.add(new Image(path.toUri().toString())));
-        ImageIterator = ImageList.listIterator();
-        DisplayBox.visibleProperty().setValue(true);
-        
-        ImageTimeLine.play();
     }
     
     @FXML
     private void onMouseExited(MouseEvent ev){
+        System.err.println("exit");
+        
         DisplayBox.visibleProperty().setValue(false);
         ImageTimeLine.stop();
         ImageList.clear();
+        try{
+            GameMediaView.getMediaPlayer().stop();
+        }catch(NullPointerException e){
+        }
+        GameMediaView.setMediaPlayer(null);
+        MovieList.clear();
     }
     
     @FXML
@@ -94,9 +151,29 @@ public class GameDisplayBoxController implements Initializable {
         try{
             GameSSView.setImage(ImageIterator.next());
         }catch(NoSuchElementException ex){
-            ImageIterator = ImageList.iterator();
-            GameSSView.setImage(ImageList.get(0));
+            if(DisplayState == State.ImageOnly){
+                ImageIterator = ImageList.iterator();
+                GameSSView.setImage(ImageList.get(0));
+            }else{
+                DisplayState = State.Both_Media;
+                MediaPlayer mediaPlayer = new MediaPlayer(MovieList.get(0));
+                mediaPlayer.setAutoPlay(true);
+                
+                GameMediaView.setMediaPlayer(mediaPlayer);
+                GameSSView.setVisible(false);
+                GameMediaView.setVisible(true);
+                GameMediaView.toFront();
+            }
         }
         System.err.println("timer");
+    }
+    
+    private void ImageSet(){
+        ImageIterator = ImageList.listIterator();
+        Image SS = new Image(game.getImagesPathList().get(0).toUri().toString());
+        GameSSView.setImage(SS);
+        ImageTimeLine.play();
+        GameSSView.setVisible(true);
+        GameMediaView.setVisible(false);
     }
 }
