@@ -55,11 +55,11 @@ public class GameDisplayBoxController implements Initializable {
         public void run(){
             MediaPlayer player;
             try{
-                System.err.println(MovieIterator);
                 player = new MediaPlayer(MovieIterator.next());
             }catch(NoSuchElementException e){
                 if(DisplayState == State.MediaOnly){
-                    player = new MediaPlayer(MovieList.get(0));
+                    MovieIterator = MovieList.iterator();
+                    player = new MediaPlayer(MovieIterator.next());
                     player.setOnEndOfMedia(onMovieEnd);
                     player.setAutoPlay(true);
 
@@ -71,7 +71,7 @@ public class GameDisplayBoxController implements Initializable {
                     DisplayState = State.Both_Image;
                     
                     ImageIterator = ImageList.iterator();
-                    GameSSView.setImage(ImageList.get(0));
+                    GameSSView.setImage(ImageIterator.next());
                     ImageTimeLine.play();
                     GameSSView.setVisible(true);
                     GameMediaView.setVisible(false);
@@ -132,7 +132,7 @@ public class GameDisplayBoxController implements Initializable {
                 DisplayState = State.MediaOnly;
                 MovieIterator = MovieList.iterator();
 
-                MediaPlayer mediaPlayer = new MediaPlayer(MovieList.get(0));
+                MediaPlayer mediaPlayer = new MediaPlayer(MovieIterator.next());
                 mediaPlayer.setOnEndOfMedia(onMovieEnd);
                 mediaPlayer.setAutoPlay(true);
                 mediaPlayer.setCycleCount(1);
@@ -200,12 +200,12 @@ public class GameDisplayBoxController implements Initializable {
         }catch(NoSuchElementException ex){
             if(DisplayState == State.ImageOnly){
                 ImageIterator = ImageList.iterator();
-                GameSSView.setImage(ImageList.get(0));
+                GameSSView.setImage(ImageIterator.next());
             }else{
                 ImageTimeLine.stop();
                 DisplayState = State.Both_Media;
-                MediaPlayer mediaPlayer = new MediaPlayer(MovieList.get(0));
                 MovieIterator = MovieList.iterator();
+                MediaPlayer mediaPlayer = new MediaPlayer(MovieIterator.next());
                 mediaPlayer.setOnEndOfMedia(onMovieEnd);
                 mediaPlayer.setAutoPlay(true);
                 mediaPlayer.setCycleCount(1);
@@ -221,8 +221,7 @@ public class GameDisplayBoxController implements Initializable {
     
     private void ImageSet(){
         ImageIterator = ImageList.listIterator();
-        Image SS = new Image(game.getImagesPathList().get(0).toUri().toString());
-        GameSSView.setImage(SS);
+        GameSSView.setImage(ImageIterator.next());
         ImageTimeLine.play();
         GameSSView.setVisible(true);
         GameMediaView.setVisible(false);
