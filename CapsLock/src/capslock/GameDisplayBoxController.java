@@ -53,20 +53,15 @@ public class GameDisplayBoxController implements Initializable {
     class onMovieEndClass implements Runnable{
         @Override
         public void run(){
-            MediaPlayer player;
             try{
-                player = new MediaPlayer(MovieIterator.next());
+                PlayMovie(MovieIterator.next());
             }catch(NoSuchElementException e){
                 if(DisplayState == State.MediaOnly){
                     MovieIterator = MovieList.iterator();
-                    player = new MediaPlayer(MovieIterator.next());
-                    player.setOnEndOfMedia(onMovieEnd);
-                    player.setAutoPlay(true);
+                    PlayMovie(MovieIterator.next());
 
-                    GameMediaView.setMediaPlayer(player);
                     GameSSView.setVisible(false);
                     GameMediaView.setVisible(true);
-                    GameMediaView.toFront();
                 }else{
                     DisplayState = State.Both_Image;
                     
@@ -75,14 +70,8 @@ public class GameDisplayBoxController implements Initializable {
                     ImageTimeLine.play();
                     GameSSView.setVisible(true);
                     GameMediaView.setVisible(false);
-                    ImageTimeLine.play();
                 }
-                return;
             }
-            player.setOnEndOfMedia(onMovieEnd);
-            player.setAutoPlay(true);
-            player.setCycleCount(1);
-            GameMediaView.setMediaPlayer(player);
         }
     }
     
@@ -131,16 +120,10 @@ public class GameDisplayBoxController implements Initializable {
             case 0b10:
                 DisplayState = State.MediaOnly;
                 MovieIterator = MovieList.iterator();
+                PlayMovie(MovieIterator.next());
 
-                MediaPlayer mediaPlayer = new MediaPlayer(MovieIterator.next());
-                mediaPlayer.setOnEndOfMedia(onMovieEnd);
-                mediaPlayer.setAutoPlay(true);
-                mediaPlayer.setCycleCount(1);
-                
-                GameMediaView.setMediaPlayer(mediaPlayer);
                 GameSSView.setVisible(false);
                 GameMediaView.setVisible(true);
-                GameMediaView.toFront();
                 
                 break;
                 
@@ -205,15 +188,9 @@ public class GameDisplayBoxController implements Initializable {
                 ImageTimeLine.stop();
                 DisplayState = State.Both_Media;
                 MovieIterator = MovieList.iterator();
-                MediaPlayer mediaPlayer = new MediaPlayer(MovieIterator.next());
-                mediaPlayer.setOnEndOfMedia(onMovieEnd);
-                mediaPlayer.setAutoPlay(true);
-                mediaPlayer.setCycleCount(1);
-                
-                GameMediaView.setMediaPlayer(mediaPlayer);
+                PlayMovie(MovieIterator.next());
                 GameSSView.setVisible(false);
                 GameMediaView.setVisible(true);
-                GameMediaView.toFront();
             }
         }
         System.err.println("timer");
@@ -225,5 +202,13 @@ public class GameDisplayBoxController implements Initializable {
         ImageTimeLine.play();
         GameSSView.setVisible(true);
         GameMediaView.setVisible(false);
+    }
+    
+    private void PlayMovie(Media movie){
+        MediaPlayer player = new MediaPlayer(movie);
+        player.setOnEndOfMedia(onMovieEnd);
+        player.setAutoPlay(true);
+        player.setCycleCount(1);       
+        GameMediaView.setMediaPlayer(player);
     }
 }
