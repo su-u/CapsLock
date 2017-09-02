@@ -10,11 +10,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="DisplayBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onGameClicked" onMouseExited="#onMouseExited" styleClass="v-box" stylesheets="@GameDisplayBox.css" visible="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capslock.GameDisplayBoxController">
+<VBox fx:id="DisplayBox" onMouseClicked="#onGameClicked" onMouseExited="#onMouseExited" styleClass="v-box" stylesheets="@GameDisplayBox.css" visible="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capslock.GameDisplayBoxController">
    <children>
-      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      <StackPane fx:id="ViewStackPane" VBox.vgrow="ALWAYS">
          <children>
-            <MediaView fx:id="GameMediaView" disable="true" />
             <ImageView fx:id="GameSSView" pickOnBounds="true" preserveRatio="true" />
          </children>
       </StackPane>

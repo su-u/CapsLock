@@ -19,10 +19,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
 /**
@@ -50,6 +50,9 @@ public class GameDisplayBoxController implements Initializable {
     
     private State DisplayState;
     
+    private double width;
+    private double height;
+    
     class onMovieEndClass implements Runnable{
         @Override
         public void run(){
@@ -61,7 +64,7 @@ public class GameDisplayBoxController implements Initializable {
                     PlayMovie(MovieIterator.next());
 
                     GameSSView.setVisible(false);
-                    GameMediaView.setVisible(true);
+                    GameMovieView.setVisible(true);
                 }else{
                     DisplayState = State.Both_Image;
                     
@@ -69,7 +72,7 @@ public class GameDisplayBoxController implements Initializable {
                     GameSSView.setImage(ImageIterator.next());
                     ImageTimeLine.play();
                     GameSSView.setVisible(true);
-                    GameMediaView.setVisible(false);
+                    GameMovieView.setVisible(false);
                 }
             }
         }
@@ -79,9 +82,11 @@ public class GameDisplayBoxController implements Initializable {
     
     @FXML VBox DisplayBox;
     @FXML ImageView GameSSView;
-    @FXML MediaView GameMediaView;
     @FXML Label TitleLabel;
     @FXML Label DiscriptionLabel;
+    @FXML StackPane ViewStackPane;
+    
+    ResizableMediaView GameMovieView = new ResizableMediaView();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,6 +94,8 @@ public class GameDisplayBoxController implements Initializable {
         Duration.millis(2500),
         ae -> UpdateImage(ae)));
         ImageTimeLine.setCycleCount(Animation.INDEFINITE);
+        
+        ViewStackPane.getChildren().add(GameMovieView);
     }
 
     public void onImageFocused(ImageView view){
@@ -123,7 +130,7 @@ public class GameDisplayBoxController implements Initializable {
                 PlayMovie(MovieIterator.next());
 
                 GameSSView.setVisible(false);
-                GameMediaView.setVisible(true);
+                GameMovieView.setVisible(true);
                 
                 break;
                 
@@ -151,10 +158,10 @@ public class GameDisplayBoxController implements Initializable {
         ImageTimeLine.stop();
         ImageList.clear();
         try{
-            GameMediaView.getMediaPlayer().stop();
+            GameMovieView.getMediaPlayer().stop();
         }catch(NullPointerException e){
         }
-        GameMediaView.setMediaPlayer(null);
+        GameMovieView.setMediaPlayer(null);
         MovieList.clear();
         game = null;
     }
@@ -172,9 +179,10 @@ public class GameDisplayBoxController implements Initializable {
     
     private void InitVBoxSize(){
         final AnchorPane ParentPane = (AnchorPane)DisplayBox.getParent();
-        final double width = ParentPane.getWidth() / 2;
-        final double height = ParentPane.getHeight() / 2;
+        width = ParentPane.getWidth() / 2;
+        height = ParentPane.getHeight() / 2;
         DisplayBox.setPrefSize(width, height);
+        DisplayBox.setMaxSize(width, height);
     }
     
     private void UpdateImage(ActionEvent event){
@@ -190,18 +198,18 @@ public class GameDisplayBoxController implements Initializable {
                 MovieIterator = MovieList.iterator();
                 PlayMovie(MovieIterator.next());
                 GameSSView.setVisible(false);
-                GameMediaView.setVisible(true);
+                GameMovieView.setVisible(true);
             }
         }
         System.err.println("timer");
     }
     
     private void ImageSet(){
-        ImageIterator = ImageList.listIterator();
+        ImageIterator = ImageList.iterator();
         GameSSView.setImage(ImageIterator.next());
         ImageTimeLine.play();
         GameSSView.setVisible(true);
-        GameMediaView.setVisible(false);
+        GameMovieView.setVisible(false);
     }
     
     private void PlayMovie(Media movie){
@@ -209,6 +217,6 @@ public class GameDisplayBoxController implements Initializable {
         player.setOnEndOfMedia(onMovieEnd);
         player.setAutoPlay(true);
         player.setCycleCount(1);       
-        GameMediaView.setMediaPlayer(player);
+        GameMovieView.setMediaPlayer(player);
     }
 }
