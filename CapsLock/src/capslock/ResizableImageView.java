@@ -1,14 +1,15 @@
 package capslock;
 
 import javafx.geometry.Bounds;
-import javafx.scene.media.MediaView;
+import javafx.scene.image.ImageView;
 
 /**
  *
  * @author RISCassembler
  */
-public class ResizableMediaView extends MediaView{
-    public ResizableMediaView(){
+public class ResizableImageView extends ImageView{
+    public ResizableImageView(){
+        setPreserveRatio(true);
     }
     
     @Override
@@ -18,7 +19,6 @@ public class ResizableMediaView extends MediaView{
     
     @Override
     public void resize(double width, double height){
-        System.err.println("resize called");
         final Bounds ParentsBounds = getParent().getBoundsInLocal();
         setFitWidth(ParentsBounds.getWidth());
         setFitHeight(ParentsBounds.getHeight());

@@ -63,15 +63,15 @@ public class GameDisplayBoxController implements Initializable {
                     MovieIterator = MovieList.iterator();
                     PlayMovie(MovieIterator.next());
 
-                    GameSSView.setVisible(false);
+                    GameImageView.setVisible(false);
                     GameMovieView.setVisible(true);
                 }else{
                     DisplayState = State.Both_Image;
                     
                     ImageIterator = ImageList.iterator();
-                    GameSSView.setImage(ImageIterator.next());
+                    GameImageView.setImage(ImageIterator.next());
                     ImageTimeLine.play();
-                    GameSSView.setVisible(true);
+                    GameImageView.setVisible(true);
                     GameMovieView.setVisible(false);
                 }
             }
@@ -81,12 +81,12 @@ public class GameDisplayBoxController implements Initializable {
     Runnable onMovieEnd = new onMovieEndClass();
     
     @FXML VBox DisplayBox;
-    @FXML ImageView GameSSView;
     @FXML Label TitleLabel;
     @FXML Label DiscriptionLabel;
     @FXML StackPane ViewStackPane;
     
     ResizableMediaView GameMovieView = new ResizableMediaView();
+    ResizableImageView GameImageView = new ResizableImageView();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,6 +96,7 @@ public class GameDisplayBoxController implements Initializable {
         ImageTimeLine.setCycleCount(Animation.INDEFINITE);
         
         ViewStackPane.getChildren().add(GameMovieView);
+        ViewStackPane.getChildren().add(GameImageView);
     }
 
     public void onImageFocused(ImageView view){
@@ -129,7 +130,7 @@ public class GameDisplayBoxController implements Initializable {
                 MovieIterator = MovieList.iterator();
                 PlayMovie(MovieIterator.next());
 
-                GameSSView.setVisible(false);
+                GameImageView.setVisible(false);
                 GameMovieView.setVisible(true);
                 
                 break;
@@ -187,17 +188,17 @@ public class GameDisplayBoxController implements Initializable {
     
     private void UpdateImage(ActionEvent event){
         try{
-            GameSSView.setImage(ImageIterator.next());
+            GameImageView.setImage(ImageIterator.next());
         }catch(NoSuchElementException ex){
             if(DisplayState == State.ImageOnly){
                 ImageIterator = ImageList.iterator();
-                GameSSView.setImage(ImageIterator.next());
+                GameImageView.setImage(ImageIterator.next());
             }else{
                 ImageTimeLine.stop();
                 DisplayState = State.Both_Media;
                 MovieIterator = MovieList.iterator();
                 PlayMovie(MovieIterator.next());
-                GameSSView.setVisible(false);
+                GameImageView.setVisible(false);
                 GameMovieView.setVisible(true);
             }
         }
@@ -206,9 +207,10 @@ public class GameDisplayBoxController implements Initializable {
     
     private void ImageSet(){
         ImageIterator = ImageList.iterator();
-        GameSSView.setImage(ImageIterator.next());
+        GameImageView.setImage(ImageIterator.next());
         ImageTimeLine.play();
-        GameSSView.setVisible(true);
+        
+        GameImageView.setVisible(true);
         GameMovieView.setVisible(false);
     }
     
@@ -218,5 +220,10 @@ public class GameDisplayBoxController implements Initializable {
         player.setAutoPlay(true);
         player.setCycleCount(1);       
         GameMovieView.setMediaPlayer(player);
+    }
+    
+    private void SwapDisplayType(){
+        if(GameImageView.isDisabled())GameImageView.setDisable(false);
+        if(GameMovieView.isDisabled())GameMovieView.setDisable(false);
     }
 }
