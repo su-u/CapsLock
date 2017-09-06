@@ -8,21 +8,29 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 /**
@@ -49,6 +57,10 @@ public class GameDisplayBoxController implements Initializable {
     private Iterator<Media> MovieIterator;
     
     private State DisplayState;
+    
+    private FlowText flow;
+    
+    private TranslateTransition transition;
     
     private double width;
     private double height;
@@ -84,6 +96,7 @@ public class GameDisplayBoxController implements Initializable {
     @FXML Label TitleLabel;
     @FXML Label DiscriptionLabel;
     @FXML StackPane ViewStackPane;
+    @FXML ScrollPane ClipBox;
     
     ResizableMediaView GameMovieView = new ResizableMediaView();
     ResizableImageView GameImageView = new ResizableImageView();
@@ -97,6 +110,12 @@ public class GameDisplayBoxController implements Initializable {
         
         ViewStackPane.getChildren().add(GameMovieView);
         ViewStackPane.getChildren().add(GameImageView);
+        
+        transition = new TranslateTransition(Duration.seconds(8), DiscriptionLabel);
+        transition.setFromX(200);
+        transition.setToX(-200);
+        transition.setInterpolator(Interpolator.LINEAR);
+        transition.setCycleCount(TranslateTransition.INDEFINITE);
     }
 
     public void onImageFocused(ImageView view){
@@ -106,6 +125,10 @@ public class GameDisplayBoxController implements Initializable {
         
         game = (GameCertification)view.getUserData();
         TitleLabel.setText(game.getName());
+        
+        //flow = new FlowText(game.getDescription());
+        
+        //DisplayBox.getChildren().add(flow.getNode());
         DiscriptionLabel.setText(game.getDescription());
 
         
@@ -149,6 +172,19 @@ public class GameDisplayBoxController implements Initializable {
         InitVBoxSize();
         final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
         DisplayBox.relocate(point.getX(), point.getY());
+        
+        //flow.run();
+        System.err.println(DiscriptionLabel.getLayoutX());
+        System.err.println(DiscriptionLabel.getLayoutY());
+        System.err.println(view.getFitWidth());
+        System.err.println(view.getFitWidth());
+        //Rectangle ClipRect = new Rectangle(DisplayBox.getLayoutX(), DisplayBox.getLayoutY(), DisplayBox.getWidth(), DisplayBox.getHeight());
+        //Rectangle ClipRect = new Rectangle(DiscriptionLabel.getWidth(), DiscriptionLabel.getHeight());
+        //ClipRect.setFill(Color.WHITE);
+        //DiscriptionLabel.setClip(ClipRect);
+        ClipBox.setPrefHeight(DiscriptionLabel.getHeight());
+        ClipBox.autosize();
+        transition.play();
     }
     
     @FXML
@@ -203,6 +239,8 @@ public class GameDisplayBoxController implements Initializable {
             }
         }
         System.err.println("timer");
+        System.err.println(transition.getStatus());
+        System.err.println(DiscriptionLabel.getLayoutX());
     }
     
     private void ImageSet(){
