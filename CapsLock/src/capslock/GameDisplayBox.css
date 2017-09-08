@@ -6,6 +6,14 @@
     -fx-background-color: #999999;
 }
 
+.scroll-pane{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
 .label{
     -fx-text-fill: white;
 }

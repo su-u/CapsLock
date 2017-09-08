@@ -15,9 +15,9 @@
    <children>
       <StackPane fx:id="ViewStackPane" VBox.vgrow="ALWAYS" />
       <Label id="title-label" fx:id="TitleLabel" text="Label" />
-      <ScrollPane fx:id="ClipBox" hbarPolicy="NEVER" hmax="1000.0" minHeight="0.0" pannable="true" vbarPolicy="NEVER">
+      <ScrollPane fx:id="ClipBox" hbarPolicy="NEVER" hmax="1000.0" minHeight="0.0" pickOnBounds="false" vbarPolicy="NEVER">
          <content>
-            <Label fx:id="DiscriptionLabel" style="-fx-background-color: red;" text="This is a test" />
+            <Label fx:id="DiscriptionLabel" pickOnBounds="false" text="This is a test" />
          </content>
       </ScrollPane>
    </children>
