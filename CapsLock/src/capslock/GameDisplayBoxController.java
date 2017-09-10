@@ -53,8 +53,6 @@ public class GameDisplayBoxController implements Initializable {
     
     private State DisplayState;
     
-    private FlowText flow;
-    
     private Timeline Scroller;
     
     private double width;
@@ -122,12 +120,7 @@ public class GameDisplayBoxController implements Initializable {
         
         game = (GameCertification)view.getUserData();
         TitleLabel.setText(game.getName());
-        
-        //flow = new FlowText(game.getDescription());
-        
-        //DisplayBox.getChildren().add(flow.getNode());
         DiscriptionLabel.setText(game.getDescription());
-
         
         byte Flags = 0;
         
@@ -170,7 +163,6 @@ public class GameDisplayBoxController implements Initializable {
         final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
         DisplayBox.relocate(point.getX(), point.getY());
         
-        //flow.run();
         DiscriptionLabel.setPadding(Insets.EMPTY);
         DiscriptionLabel.autosize();
         double textwidth = DiscriptionLabel.getWidth();
