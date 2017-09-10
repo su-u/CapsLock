@@ -42,6 +42,7 @@ public class GameDisplayBoxController implements Initializable {
         Both_Image,
         Both_Media
     }
+    private State DisplayState;
 
     private GameCertification game;
     
@@ -51,12 +52,19 @@ public class GameDisplayBoxController implements Initializable {
     private List<Media> MovieList = new ArrayList();
     private Iterator<Media> MovieIterator;
     
-    private State DisplayState;
-    
     private Timeline Scroller;
     
     private double width;
     private double height;
+    
+    @FXML VBox DisplayBox;
+    @FXML Label TitleLabel;
+    @FXML Label DiscriptionLabel;
+    @FXML StackPane ViewStackPane;
+    @FXML ScrollPane ClipBox;
+    
+    ResizableMediaView GameMovieView = new ResizableMediaView();
+    ResizableImageView GameImageView = new ResizableImageView();
     
     class onMovieEndClass implements Runnable{
         @Override
@@ -85,14 +93,7 @@ public class GameDisplayBoxController implements Initializable {
     
     Runnable onMovieEnd = new onMovieEndClass();
     
-    @FXML VBox DisplayBox;
-    @FXML Label TitleLabel;
-    @FXML Label DiscriptionLabel;
-    @FXML StackPane ViewStackPane;
-    @FXML ScrollPane ClipBox;
     
-    ResizableMediaView GameMovieView = new ResizableMediaView();
-    ResizableImageView GameImageView = new ResizableImageView();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
