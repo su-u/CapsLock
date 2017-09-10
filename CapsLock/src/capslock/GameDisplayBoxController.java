@@ -109,7 +109,7 @@ public class GameDisplayBoxController implements Initializable {
         ViewStackPane.getChildren().add(GameImageView);
         
         Scroller = new Timeline();
-        Scroller.getKeyFrames().add(new KeyFrame(Duration.millis(5000),
+        Scroller.getKeyFrames().add(new KeyFrame(Duration.seconds(25),
                 new KeyValue (ClipBox.hvalueProperty(), 1000)));
         Scroller.setCycleCount(Timeline.INDEFINITE);
     }
@@ -179,6 +179,7 @@ public class GameDisplayBoxController implements Initializable {
             DiscriptionLabel.setPadding(new Insets(0, textwidth, 0, textwidth));
         }
         
+        ClipBox.setHmax(textwidth);
         Scroller.play();
     }
     
