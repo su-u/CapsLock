@@ -54,9 +54,6 @@ public class GameDisplayBoxController implements Initializable {
     
     private Timeline Scroller;
     
-    private double width;
-    private double height;
-    
     @FXML VBox DisplayBox;
     @FXML Label TitleLabel;
     @FXML Label DiscriptionLabel;
@@ -205,8 +202,8 @@ public class GameDisplayBoxController implements Initializable {
     
     private void InitVBoxSize(){
         final AnchorPane ParentPane = (AnchorPane)DisplayBox.getParent();
-        width = ParentPane.getWidth() / 2;
-        height = ParentPane.getHeight() / 2;
+        final double width = ParentPane.getWidth() / 2;
+        final double height = ParentPane.getHeight() / 2;
         DisplayBox.setPrefSize(width, height);
         DisplayBox.setMaxSize(width, height);
     }
