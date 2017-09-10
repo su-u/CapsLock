@@ -72,17 +72,13 @@ public class GameDisplayBoxController implements Initializable {
                 if(DisplayState == State.MediaOnly){
                     MovieIterator = MovieList.iterator();
                     PlayMovie(MovieIterator.next());
-
-                    GameImageView.setVisible(false);
-                    GameMovieView.setVisible(true);
                 }else{
                     DisplayState = State.Both_Image;
                     
                     ImageIterator = ImageList.iterator();
                     GameImageView.setImage(ImageIterator.next());
                     ImageTimeLine.play();
-                    GameImageView.setVisible(true);
-                    GameMovieView.setVisible(false);
+                    SwapDisplayContentType();
                 }
             }
         }
@@ -142,7 +138,6 @@ public class GameDisplayBoxController implements Initializable {
                 PlayMovie(MovieIterator.next());
 
                 GameImageView.setVisible(false);
-                GameMovieView.setVisible(true);
                 
                 break;
                 
@@ -155,7 +150,7 @@ public class GameDisplayBoxController implements Initializable {
                 System.err.println("critical ; unexpected flag");
         }
         
-         DisplayBox.visibleProperty().setValue(true);
+        DisplayBox.setVisible(true);
         
         InitVBoxSize();
         final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
@@ -177,7 +172,7 @@ public class GameDisplayBoxController implements Initializable {
     private void onMouseExited(MouseEvent ev){
         System.err.println("exit");
         
-        DisplayBox.visibleProperty().setValue(false);
+        DisplayBox.setVisible(false);
         ImageTimeLine.stop();
         ImageList.clear();
         try{
@@ -220,8 +215,7 @@ public class GameDisplayBoxController implements Initializable {
                 DisplayState = State.Both_Media;
                 MovieIterator = MovieList.iterator();
                 PlayMovie(MovieIterator.next());
-                GameImageView.setVisible(false);
-                GameMovieView.setVisible(true);
+                SwapDisplayContentType();
             }
         }
         System.err.println("timer");
@@ -232,8 +226,7 @@ public class GameDisplayBoxController implements Initializable {
         ImageIterator = ImageList.iterator();
         GameImageView.setImage(ImageIterator.next());
         ImageTimeLine.play();
-        
-        GameImageView.setVisible(true);
+
         GameMovieView.setVisible(false);
     }
     
@@ -245,8 +238,8 @@ public class GameDisplayBoxController implements Initializable {
         GameMovieView.setMediaPlayer(player);
     }
     
-    private void SwapDisplayType(){
-        if(GameImageView.isDisabled())GameImageView.setDisable(false);
-        if(GameMovieView.isDisabled())GameMovieView.setDisable(false);
+    private void SwapDisplayContentType(){
+        GameImageView.setVisible(!GameImageView.isVisible());
+        GameMovieView.setVisible(!GameMovieView.isVisible());
     }
 }
