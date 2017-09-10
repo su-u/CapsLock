@@ -14,6 +14,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -97,6 +98,8 @@ public class GameDisplayBoxController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("init");
+        
         ImageTimeLine = new Timeline(new KeyFrame(
         Duration.millis(2500),
         ae -> UpdateImage(ae)));
@@ -112,6 +115,7 @@ public class GameDisplayBoxController implements Initializable {
     }
 
     public void onImageFocused(ImageView view){
+        System.out.println("forcus");
         if(game != null){
             onMouseExited(null);
         }
@@ -167,8 +171,11 @@ public class GameDisplayBoxController implements Initializable {
         DisplayBox.relocate(point.getX(), point.getY());
         
         //flow.run();
-        ClipBox.setPrefHeight(DiscriptionLabel.getHeight());
-        ClipBox.autosize();
+        DiscriptionLabel.setPadding(Insets.EMPTY);
+        DiscriptionLabel.autosize();
+        double textwidth = DiscriptionLabel.getWidth();
+        DiscriptionLabel.setPadding(new Insets(0, textwidth, 0, textwidth));
+
         Scroller.play();
     }
     
