@@ -174,8 +174,11 @@ public class GameDisplayBoxController implements Initializable {
         DiscriptionLabel.setPadding(Insets.EMPTY);
         DiscriptionLabel.autosize();
         double textwidth = DiscriptionLabel.getWidth();
-        DiscriptionLabel.setPadding(new Insets(0, textwidth, 0, textwidth));
-
+        
+        if(ClipBox.getWidth() < textwidth){
+            DiscriptionLabel.setPadding(new Insets(0, textwidth, 0, textwidth));
+        }
+        
         Scroller.play();
     }
     
