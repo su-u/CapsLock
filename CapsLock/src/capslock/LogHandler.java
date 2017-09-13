@@ -27,7 +27,5 @@ enum LogHandler{
         logger.addHandler(handler);
     }
     
-    public void flush(){
-        handler.close();
-    }
+    public final void close(){handler.close();}
 }

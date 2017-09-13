@@ -19,7 +19,7 @@ public final class CapsLock extends Application {
     public static void main(String[] args) {
         final LogHandler logger = LogHandler.instance;
         launch(args);
-        logger.flush();
+        logger.close();
     }
     
     @Override
