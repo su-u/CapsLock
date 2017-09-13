@@ -2,6 +2,7 @@ package capslock;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -25,6 +26,7 @@ enum LogHandler{
         }
         
         handler.setFormatter(new LogFormatter());
+        logger.setLevel(Level.ALL);
         logger.addHandler(handler);
     }
     
