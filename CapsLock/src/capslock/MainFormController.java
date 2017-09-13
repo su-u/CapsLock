@@ -27,6 +27,7 @@ import org.json.JSONObject;
 public class MainFormController implements Initializable {
 
     private static final double TileSizeScale = 2.5;
+    private static final String DB_FILE_NAME = "GamesInfo.json";
     
     @FXML TilePane BaseTilePane;
     @FXML GameDisplayBoxController GameDisplayController;
@@ -35,45 +36,25 @@ public class MainFormController implements Initializable {
     private final List<GameCertification> GameList;
 
     public MainFormController() {
-        BufferedReader reader;
+        List<GameCertification> ListBuilder = new ArrayList();
         
-        try {
-            reader = new BufferedReader(new FileReader("GamesInfo.json"));
+        try(final BufferedReader reader = new BufferedReader(new FileReader(DB_FILE_NAME));){
+            
+            final String JsonString = reader.readLine();
+            new JSONArray(JsonString).forEach(record -> ListBuilder.add(new GameCertification((JSONObject) record)));
+            
         } catch (FileNotFoundException ex) {
-            System.out.println(ex);
-            GameList = null;
-            return;
-        }
-        
-        String jsonString;
-        
-        try {
-            jsonString = reader.readLine();
+            LogHandler.instance.warning("Failed to open " + DB_FILE_NAME);
         } catch (IOException ex) {
-            System.out.println(ex);
+            LogHandler.instance.warning("IOException : " + DB_FILE_NAME + " can be wrong.");
+        } catch(JSONException ex){
+            LogHandler.instance.warning("JSONException : " + DB_FILE_NAME + " must be wrong.");
+        } catch(Exception ex){
             GameList = null;
             return;
         }
         
-        System.out.println(jsonString);
-         
-        if(jsonString == null){
-            GameList = null;
-            return;
-        }
-        
-        {
-            List<GameCertification> ListBuilder = new ArrayList();
-            try{
-                new JSONArray(jsonString).forEach(record -> ListBuilder.add(new GameCertification((JSONObject) record)));
-            }catch(JSONException e){
-                GameList = null;
-                return;
-            }
-           
-            GameList = Collections.unmodifiableList(ListBuilder);
-        }
-        
+        GameList = Collections.unmodifiableList(ListBuilder);
         LogHandler.instance.fine(GameList.size() + "件のゲームを検出");
     }
     
