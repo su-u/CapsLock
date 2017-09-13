@@ -12,9 +12,10 @@ enum LogHandler{
     instance;
     
     private FileHandler handler;
+    private final Logger logger;
     
     private LogHandler() {
-        final Logger logger = Logger.getLogger("testlogger");
+        logger = Logger.getLogger("DefaultLogger");
 
         try {
             handler = new FileHandler("log.txt", true);
@@ -28,4 +29,11 @@ enum LogHandler{
     }
     
     public final void close(){handler.close();}
+    public final void severe(String msg){logger.severe(msg);}
+    public final void warning(String msg){logger.warning(msg);}
+    public final void info(String msg){logger.info(msg);}
+    public final void config(String msg){logger.config(msg);}
+    public final void fine(String msg){logger.fine(msg);}
+    public final void finer(String msg){logger.finer(msg);}
+    public final void finest(String msg){logger.finest(msg);}
 }
