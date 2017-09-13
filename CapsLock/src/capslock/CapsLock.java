@@ -18,7 +18,9 @@ public final class CapsLock extends Application {
      */
     public static void main(String[] args) {
         final LogHandler logger = LogHandler.instance;
+        logger.info("CapsLock started.");
         launch(args);
+        logger.info("CapsLock terminated normally.");
         logger.close();
     }
     

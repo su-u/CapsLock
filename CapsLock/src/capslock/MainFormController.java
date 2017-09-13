@@ -70,9 +70,11 @@ public class MainFormController implements Initializable {
                 GameList = null;
                 return;
             }
-            
+           
             GameList = Collections.unmodifiableList(ListBuilder);
         }
+        
+        LogHandler.instance.fine(GameList.size() + "件のゲームを検出");
     }
     
     @Override
