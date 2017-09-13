@@ -11,13 +11,15 @@ import javafx.stage.Stage;
  *
  * @author RISCassembler
  */
-public class CapsLock extends Application {
+public final class CapsLock extends Application {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        final LogHandler logger = LogHandler.instance;
         launch(args);
+        logger.flush();
     }
     
     @Override
