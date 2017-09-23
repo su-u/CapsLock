@@ -14,14 +14,18 @@
       <TilePane fx:id="LeftTilePane" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <StackPane prefHeight="150.0" prefWidth="200.0">
+            <StackPane fx:id="ViewStackPane" prefHeight="150.0" prefWidth="200.0">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <MediaView fitHeight="200.0" fitWidth="200.0" />
                </children>
             </StackPane>
-            <Label text="Label" />
-            <Label text="Label" />
+            <Label fx:id="NameLabel" text="Label" />
+            <ScrollPane fx:id="LabelScroller" prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <Label fx:id="DescriptionLabel" text="Label" />
+               </content>
+            </ScrollPane>
          </children>
       </VBox>
    </children>
