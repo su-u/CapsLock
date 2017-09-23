@@ -57,12 +57,37 @@ public class MainFormController implements Initializable {
     private static final double TileSizeScale = 2.5;
     private static final String DB_FILE_NAME = "GamesInfo.json";
     
+    private enum State{
+        None,
+        ImageOnly,
+        MediaOnly,
+        Both_Image,
+        Both_Media
+    }
+        
+    private State DisplayState;
+
+    private GameCertification game;
     
-    @FXML TilePane LeftTilePane;
-    //@FXML GameDisplayBoxController GameDisplayController;
+    private Timeline ImageTimeLine;
+    private List<Image> ImageList = new ArrayList<>();
+    private Iterator<Image> ImageIterator;
+    private List<Media> MovieList = new ArrayList<>();
+    private Iterator<Media> MovieIterator;
+    private Timeline Scroller;
     
+    ResizableMediaView GameMovieView = new ResizableMediaView();
+    ResizableImageView GameImageView = new ResizableImageView();
+
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
+    
+    @FXML Label NameLabel;
+    @FXML Label DiscriptionLabel;
+    @FXML StackPane ViewStackPane;
+    @FXML ScrollPane LabelScroller;
+    @FXML TilePane LeftTilePane;
+    
 
     public MainFormController() {
         List<GameCertification> ListBuilder = new ArrayList<>();
@@ -151,33 +176,7 @@ public class MainFormController implements Initializable {
         return img ;
     }
     
-    private enum State{
-        None,
-        ImageOnly,
-        MediaOnly,
-        Both_Image,
-        Both_Media
-    }
-    private State DisplayState;
 
-    private GameCertification game;
-    
-    private Timeline ImageTimeLine;
-    private List<Image> ImageList = new ArrayList<>();
-    private Iterator<Image> ImageIterator;
-    private List<Media> MovieList = new ArrayList<>();
-    private Iterator<Media> MovieIterator;
-    
-    private Timeline Scroller;
-    
-    //@FXML VBox DisplayBox;
-    @FXML Label NameLabel;
-    @FXML Label DiscriptionLabel;
-    @FXML StackPane ViewStackPane;
-    @FXML ScrollPane LabelScroller;
-    
-    ResizableMediaView GameMovieView = new ResizableMediaView();
-    ResizableImageView GameImageView = new ResizableImageView();
     
     class onMovieEndClass implements Runnable{
         @Override
