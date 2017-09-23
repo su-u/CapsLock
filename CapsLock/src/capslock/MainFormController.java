@@ -41,14 +41,15 @@ public class MainFormController implements Initializable {
     private static final double TileSizeScale = 2.5;
     private static final String DB_FILE_NAME = "GamesInfo.json";
     
-    @FXML TilePane BaseTilePane;
-    @FXML GameDisplayBoxController GameDisplayController;
+    
+    @FXML TilePane LeftTilePane;
+    //@FXML GameDisplayBoxController GameDisplayController;
     
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
 
     public MainFormController() {
-        List<GameCertification> ListBuilder = new ArrayList();
+        List<GameCertification> ListBuilder = new ArrayList<>();
         
         try(final BufferedReader reader = new BufferedReader(new FileReader(DB_FILE_NAME));){
             
@@ -72,7 +73,7 @@ public class MainFormController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        System.out.println(GameDisplayController);
+        //System.out.println(GameDisplayController);
     }
     
     public void onLoad(WindowEvent event){
@@ -80,8 +81,8 @@ public class MainFormController implements Initializable {
         
         final double PanelImageSideLength;
         {
-            final double width = BaseTilePane.getWidth() / TileSizeScale;
-            final double height = BaseTilePane.getHeight() / TileSizeScale;
+            final double width = LeftTilePane.getWidth() / TileSizeScale;
+            final double height = LeftTilePane.getHeight() / TileSizeScale;
             PanelImageSideLength = Double.min(width, height);
         }
             
@@ -98,12 +99,12 @@ public class MainFormController implements Initializable {
             final ImageView view = new ImageView(PanelImage);
             view.fitHeightProperty().setValue(PanelImageSideLength);
             view.fitWidthProperty().setValue(PanelImageSideLength);
-            view.setOnMouseEntered((eve) -> {
-                final ImageView TriggerView = (ImageView)eve.getSource();
-                GameDisplayController.onImageFocused(TriggerView);
-            });
+//            view.setOnMouseEntered((eve) -> {
+//                final ImageView TriggerView = (ImageView)eve.getSource();
+//                GameDisplayController.onImageFocused(TriggerView);
+//            });
             view.setUserData(game);
-            BaseTilePane.getChildren().add(view);
+            LeftTilePane.getChildren().add(view);
         }
     }
     
