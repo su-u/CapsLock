@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -30,13 +29,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -244,13 +241,7 @@ public class MainFormController implements Initializable {
             default:
                 System.err.println("critical ; unexpected flag");
         }
-        
-        //DisplayBox.setVisible(true);
-        
-        InitVBoxSize();
-        final Point2D point = view.localToScreen(view.getScene().getX(), view.getScene().getY());
-        //DisplayBox.relocate(point.getX(), point.getY());
-        
+
         DiscriptionLabel.setPadding(Insets.EMPTY);
         DiscriptionLabel.autosize();
         double textwidth = DiscriptionLabel.getWidth();
@@ -267,7 +258,6 @@ public class MainFormController implements Initializable {
     private void onMouseExited(MouseEvent ev){
         System.err.println("exit");
         
-        //DisplayBox.setVisible(false);
         ImageTimeLine.stop();
         ImageList.clear();
         try{
@@ -288,14 +278,6 @@ public class MainFormController implements Initializable {
         } catch (IOException ex) {
             System.out.println(ex);
         }
-    }
-    
-    private void InitVBoxSize(){
-       // final AnchorPane ParentPane = (AnchorPane)DisplayBox.getParent();
-       // final double width = ParentPane.getWidth() / 2;
-       // final double height = ParentPane.getHeight() / 2;
-        //DisplayBox.setPrefSize(width, height);
-        //DisplayBox.setMaxSize(width, height);
     }
     
     private void UpdateImage(ActionEvent event){
