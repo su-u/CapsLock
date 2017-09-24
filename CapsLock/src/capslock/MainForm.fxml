@@ -9,9 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:id="RootHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capslock.MainFormController">
+<HBox fx:id="RootHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@MainForm.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capslock.MainFormController">
    <children>
-      <TilePane fx:id="LeftTilePane" minHeight="0.0" minWidth="0.0" style="-fx-background-color: red;" HBox.hgrow="ALWAYS" />
+      <TilePane id="LeftTilePane" fx:id="LeftTilePane" minHeight="0.0" minWidth="0.0" prefRows="3" HBox.hgrow="ALWAYS" />
       <VBox fx:id="RightVBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" HBox.hgrow="NEVER">
          <children>
             <StackPane fx:id="ViewStackPane" prefHeight="150.0" prefWidth="200.0" />

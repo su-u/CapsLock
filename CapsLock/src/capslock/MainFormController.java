@@ -54,7 +54,6 @@ import org.json.JSONObject;
  */
 public class MainFormController implements Initializable {
 
-    private static final double TileSizeScale = 2.5;
     private static final String DB_FILE_NAME = "GamesInfo.json";
     
     private enum State{
@@ -133,6 +132,8 @@ public class MainFormController implements Initializable {
     public void onLoad(WindowEvent event){
         if(IsGameMapped)return;
         
+        final double PanelImageSideLength;
+        
         {
             final double FullScreenWidth = Screen.getPrimary().getVisualBounds().getWidth();
             final double RightSize = FullScreenWidth / 3.0 * 2.0;
@@ -143,13 +144,13 @@ public class MainFormController implements Initializable {
             LeftTilePane.setPrefWidth(LeftSize);
             LeftTilePane.setMinWidth(LeftSize);
             LeftTilePane.setMaxWidth(LeftSize); 
-        }
-        
-        final double PanelImageSideLength;
-        {
-            final double width = LeftTilePane.getWidth() / TileSizeScale;
-            final double height = LeftTilePane.getHeight() / TileSizeScale;
-            PanelImageSideLength = Double.min(width, height);
+            
+            PanelImageSideLength = LeftSize / 10 * 3;
+            
+            final double Gap = LeftSize / 20;
+            
+            LeftTilePane.setVgap(Gap);
+            LeftTilePane.setHgap(Gap);
         }
             
         for(GameCertification game : GameList){
@@ -163,8 +164,9 @@ public class MainFormController implements Initializable {
             }
             
             final ImageView view = new ImageView(PanelImage);
-            view.fitHeightProperty().setValue(PanelImageSideLength);
-            view.fitWidthProperty().setValue(PanelImageSideLength);
+            view.setPreserveRatio(false);
+            view.setFitWidth(PanelImageSideLength);
+            view.setFitHeight(PanelImageSideLength);
             view.setOnMouseEntered((eve) -> {
                 final ImageView TriggerView = (ImageView)eve.getSource();
                 onImageFocused(TriggerView);
