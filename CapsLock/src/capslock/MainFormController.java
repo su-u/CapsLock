@@ -80,7 +80,7 @@ public class MainFormController implements Initializable {
     private final List<GameCertification> GameList;
     
     @FXML Label NameLabel;
-    @FXML Label DiscriptionLabel;
+    @FXML Label DescriptionLabel;
     @FXML StackPane ViewStackPane;
     @FXML ScrollPane LabelScroller;
     @FXML TilePane LeftTilePane;
@@ -148,10 +148,10 @@ public class MainFormController implements Initializable {
             final ImageView view = new ImageView(PanelImage);
             view.fitHeightProperty().setValue(PanelImageSideLength);
             view.fitWidthProperty().setValue(PanelImageSideLength);
-//            view.setOnMouseEntered((eve) -> {
-//                final ImageView TriggerView = (ImageView)eve.getSource();
-//                GameDisplayController.onImageFocused(TriggerView);
-//            });
+            view.setOnMouseEntered((eve) -> {
+                final ImageView TriggerView = (ImageView)eve.getSource();
+                onImageFocused(TriggerView);
+            });
             view.setUserData(game);
             LeftTilePane.getChildren().add(view);
         }
@@ -199,14 +199,11 @@ public class MainFormController implements Initializable {
     Runnable onMovieEnd = new onMovieEndClass();
 
     public void onImageFocused(ImageView view){
-        System.out.println("forcus");
-        if(game != null){
-            onMouseExited(null);
-        }
+        if(game != null)ReleasePreviousGameContents();
         
         game = (GameCertification)view.getUserData();
         NameLabel.setText(game.getName());
-        DiscriptionLabel.setText(game.getDescription());
+        DescriptionLabel.setText(game.getDescription());
         
         byte Flags = 0;
         
@@ -242,29 +239,25 @@ public class MainFormController implements Initializable {
                 System.err.println("critical ; unexpected flag");
         }
 
-        DiscriptionLabel.setPadding(Insets.EMPTY);
-        DiscriptionLabel.autosize();
-        double textwidth = DiscriptionLabel.getWidth();
+        DescriptionLabel.setPadding(Insets.EMPTY);
+        DescriptionLabel.autosize();
+        double textwidth = DescriptionLabel.getWidth();
         
         if(LabelScroller.getWidth() < textwidth){
-            DiscriptionLabel.setPadding(new Insets(0, textwidth, 0, textwidth));
+            DescriptionLabel.setPadding(new Insets(0, textwidth, 0, textwidth));
         }
         
         LabelScroller.setHmax(textwidth);
         Scroller.play();
     }
     
-    @FXML
-    private void onMouseExited(MouseEvent ev){
-        System.err.println("exit");
-        
+    private void ReleasePreviousGameContents(){
         ImageTimeLine.stop();
         ImageList.clear();
         try{
             GameMovieView.getMediaPlayer().stop();
         }catch(NullPointerException e){
         }
-        GameMovieView.setMediaPlayer(null);
         MovieList.clear();
         game = null;
     }
@@ -296,7 +289,7 @@ public class MainFormController implements Initializable {
             }
         }
         System.err.println("timer");
-        System.err.println(DiscriptionLabel.getLayoutX());
+        System.err.println(DescriptionLabel.getLayoutX());
     }
     
     private void ImageSet(){
