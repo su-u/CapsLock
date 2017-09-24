@@ -32,12 +32,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import org.json.JSONArray;
@@ -79,11 +82,13 @@ public class MainFormController implements Initializable {
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
     
-    @FXML Label NameLabel;
-    @FXML Label DescriptionLabel;
-    @FXML StackPane ViewStackPane;
-    @FXML ScrollPane LabelScroller;
-    @FXML TilePane LeftTilePane;
+    @FXML private HBox RootHBox;
+    @FXML private Label NameLabel;
+    @FXML private Label DescriptionLabel;
+    @FXML private StackPane ViewStackPane;
+    @FXML private ScrollPane LabelScroller;
+    @FXML private TilePane LeftTilePane;
+    @FXML private VBox RightVBox;
     
 
     public MainFormController() {
@@ -127,6 +132,18 @@ public class MainFormController implements Initializable {
     
     public void onLoad(WindowEvent event){
         if(IsGameMapped)return;
+        
+        {
+            final double FullScreenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+            final double RightSize = FullScreenWidth / 3.0 * 2.0;
+            RightVBox.setPrefWidth(RightSize);
+            RightVBox.setMinWidth(RightSize);
+            RightVBox.setMaxWidth(RightSize);
+            final double LeftSize = FullScreenWidth - RightSize;
+            LeftTilePane.setPrefWidth(LeftSize);
+            LeftTilePane.setMinWidth(LeftSize);
+            LeftTilePane.setMaxWidth(LeftSize); 
+        }
         
         final double PanelImageSideLength;
         {
