@@ -82,11 +82,12 @@ public class MainFormController implements Initializable {
     private final List<GameCertification> GameList;
     
     @FXML private HBox RootHBox;
+    @FXML private ScrollPane LeftScrollPane;
     @FXML private Label NameLabel;
     @FXML private Label DescriptionLabel;
     @FXML private StackPane ViewStackPane;
     @FXML private ScrollPane LabelScroller;
-    @FXML private TilePane LeftTilePane;
+    @FXML private TilePane PanelTilePane;
     @FXML private VBox RightVBox;
     
 
@@ -141,16 +142,20 @@ public class MainFormController implements Initializable {
             RightVBox.setMinWidth(RightSize);
             RightVBox.setMaxWidth(RightSize);
             final double LeftSize = FullScreenWidth - RightSize;
-            LeftTilePane.setPrefWidth(LeftSize);
-            LeftTilePane.setMinWidth(LeftSize);
-            LeftTilePane.setMaxWidth(LeftSize); 
+            LeftScrollPane.setPrefWidth(LeftSize);
+            LeftScrollPane.setMinWidth(LeftSize);
+            LeftScrollPane.setMaxWidth(LeftSize); 
+
+//            PanelTilePane.setPrefWidth(LeftSize);
+//            PanelTilePane.setMinWidth(LeftSize);
+//            PanelTilePane.setMaxWidth(LeftSize); 
             
             PanelImageSideLength = LeftSize / 10 * 3;
             
             final double Gap = LeftSize / 20;
             
-            LeftTilePane.setVgap(Gap);
-            LeftTilePane.setHgap(Gap);
+            PanelTilePane.setVgap(Gap);
+            PanelTilePane.setHgap(Gap);
         }
             
         for(GameCertification game : GameList){
@@ -172,7 +177,7 @@ public class MainFormController implements Initializable {
                 onImageFocused(TriggerView);
             });
             view.setUserData(game);
-            LeftTilePane.getChildren().add(view);
+            PanelTilePane.getChildren().add(view);
         }
     }
     

@@ -11,7 +11,11 @@
 
 <HBox fx:id="RootHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@MainForm.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capslock.MainFormController">
    <children>
-      <TilePane id="LeftTilePane" fx:id="LeftTilePane" minHeight="0.0" minWidth="0.0" prefRows="3" HBox.hgrow="ALWAYS" />
+      <ScrollPane fx:id="LeftScrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <TilePane id="LeftTilePane" fx:id="PanelTilePane" minHeight="0.0" minWidth="0.0" prefRows="3" />
+         </content>
+      </ScrollPane>
       <VBox fx:id="RightVBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" HBox.hgrow="NEVER">
          <children>
             <StackPane fx:id="ViewStackPane" prefHeight="150.0" prefWidth="200.0" />
