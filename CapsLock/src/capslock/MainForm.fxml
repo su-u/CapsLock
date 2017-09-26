@@ -11,12 +11,12 @@
 
 <HBox fx:id="RootHBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@MainForm.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capslock.MainFormController">
    <children>
-      <ScrollPane fx:id="LeftScrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+      <ScrollPane fx:id="LeftScrollPane" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" pannable="true" HBox.hgrow="NEVER">
          <content>
-            <TilePane id="LeftTilePane" fx:id="PanelTilePane" minHeight="0.0" minWidth="0.0" prefRows="3" />
+            <TilePane id="LeftTilePane" fx:id="PanelTilePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefColumns="20" prefRows="3" />
          </content>
       </ScrollPane>
-      <VBox fx:id="RightVBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" HBox.hgrow="NEVER">
+      <VBox fx:id="RightVBox" alignment="TOP_RIGHT" fillWidth="false" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" HBox.hgrow="SOMETIMES">
          <children>
             <StackPane fx:id="ViewStackPane" prefHeight="150.0" prefWidth="200.0" />
             <Label fx:id="NameLabel" text="Label" />

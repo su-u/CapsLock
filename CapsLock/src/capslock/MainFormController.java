@@ -137,23 +137,15 @@ public class MainFormController implements Initializable {
         
         {
             final double FullScreenWidth = Screen.getPrimary().getVisualBounds().getWidth();
-            final double RightSize = FullScreenWidth / 3.0 * 2.0;
-            RightVBox.setPrefWidth(RightSize);
-            RightVBox.setMinWidth(RightSize);
-            RightVBox.setMaxWidth(RightSize);
-            final double LeftSize = FullScreenWidth - RightSize;
-            LeftScrollPane.setPrefWidth(LeftSize);
-            LeftScrollPane.setMinWidth(LeftSize);
-            LeftScrollPane.setMaxWidth(LeftSize); 
+            final double LeftSize = FullScreenWidth / 5 * 2;
+            
+            LeftScrollPane.setPrefViewportWidth(LeftSize);
+            LeftScrollPane.setMinViewportWidth(LeftSize);
 
-//            PanelTilePane.setPrefWidth(LeftSize);
-//            PanelTilePane.setMinWidth(LeftSize);
-//            PanelTilePane.setMaxWidth(LeftSize); 
+            PanelImageSideLength = LeftSize / 10 * 2;
             
-            PanelImageSideLength = LeftSize / 10 * 3;
-            
-            final double Gap = LeftSize / 20;
-            
+            final double Gap = LeftSize / 12;
+            PanelTilePane.setPadding(new Insets(LeftSize / 10));
             PanelTilePane.setVgap(Gap);
             PanelTilePane.setHgap(Gap);
         }
