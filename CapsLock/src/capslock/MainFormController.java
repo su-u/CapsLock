@@ -14,7 +14,6 @@ import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,7 +74,6 @@ public class MainFormController implements Initializable {
     private Iterator<Image> ImageIterator;
     private List<Media> MovieList = new ArrayList<>();
     private Iterator<Media> MovieIterator;
-    private Timeline Scroller;
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
     
@@ -84,7 +82,6 @@ public class MainFormController implements Initializable {
     @FXML private Label NameLabel;
     @FXML private Label DescriptionLabel;
     @FXML private StackPane ViewStackPane;
-    @FXML private ScrollPane LabelScroller;
     @FXML private TilePane PanelTilePane;
     @FXML private VBox RightVBox;
     @FXML private ImageView StackedImageView;
@@ -119,11 +116,6 @@ public class MainFormController implements Initializable {
         Duration.millis(2500),
         ae -> UpdateImage(ae)));
         ImageTimeLine.setCycleCount(Animation.INDEFINITE);
-        
-        Scroller = new Timeline();
-        Scroller.getKeyFrames().add(new KeyFrame(Duration.seconds(25),
-                new KeyValue (LabelScroller.hvalueProperty(), 1000)));
-        Scroller.setCycleCount(Timeline.INDEFINITE);
     }
     
     public void onLoad(WindowEvent event){
@@ -259,13 +251,6 @@ public class MainFormController implements Initializable {
         DescriptionLabel.setPadding(Insets.EMPTY);
         DescriptionLabel.autosize();
         double textwidth = DescriptionLabel.getWidth();
-        
-        if(LabelScroller.getWidth() < textwidth){
-            DescriptionLabel.setPadding(new Insets(0, textwidth, 0, textwidth));
-        }
-        
-        LabelScroller.setHmax(textwidth);
-        Scroller.play();
     }
     
     private void ReleasePreviousGameContents(){

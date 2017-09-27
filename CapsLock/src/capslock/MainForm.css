@@ -6,6 +6,10 @@
     -fx-background-color: grey;
 }
 
-#NameLabel{
+.label{
     -fx-text-fill: white;
+}
+
+#DescriptionLabel{
+    
 }

@@ -24,11 +24,7 @@
                   <MediaView fx:id="StackedMediaView" StackPane.alignment="CENTER" />
                </children></StackPane>
             <Label id="NameLabel" fx:id="NameLabel" text="Label" />
-            <ScrollPane fx:id="LabelScroller" VBox.vgrow="NEVER">
-               <content>
-                  <Label fx:id="DescriptionLabel" text="Label" />
-               </content>
-            </ScrollPane>
+            <Label id="DescriptionLabel" fx:id="DescriptionLabel" text="Label" wrapText="true" />
          </children>
       </VBox>
    </children>
