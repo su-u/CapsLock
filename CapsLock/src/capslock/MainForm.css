@@ -1,3 +1,11 @@
 #LeftTilePane{
     -fx-background-color: gray;
 }
+
+#RightVBox{
+    -fx-background-color: gray;
+}
+
+#NameLabel{
+    -fx-text-fill: white;
+}

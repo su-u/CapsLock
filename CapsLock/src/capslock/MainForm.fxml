@@ -16,10 +16,10 @@
             <TilePane id="LeftTilePane" fx:id="PanelTilePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefColumns="20" prefRows="3" />
          </content>
       </ScrollPane>
-      <VBox fx:id="RightVBox" alignment="TOP_RIGHT" fillWidth="false" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" HBox.hgrow="SOMETIMES">
+      <VBox id="RightVBox" fx:id="RightVBox" HBox.hgrow="SOMETIMES">
          <children>
             <StackPane fx:id="ViewStackPane" prefHeight="150.0" prefWidth="200.0" />
-            <Label fx:id="NameLabel" text="Label" />
+            <Label id="NameLabel" fx:id="NameLabel" text="Label" />
             <ScrollPane fx:id="LabelScroller" prefHeight="200.0" prefWidth="200.0">
                <content>
                   <Label fx:id="DescriptionLabel" text="Label" />

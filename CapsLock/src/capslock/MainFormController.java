@@ -19,8 +19,10 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -136,7 +138,9 @@ public class MainFormController implements Initializable {
         final double PanelImageSideLength;
         
         {
-            final double FullScreenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+            final Rectangle2D ScreenRect = Screen.getPrimary().getVisualBounds();
+            final double FullScreenWidth = ScreenRect.getWidth();
+            final double FullScreenHeight = ScreenRect.getHeight();
             final double LeftSize = FullScreenWidth / 5 * 2;
             
             LeftScrollPane.setPrefViewportWidth(LeftSize);
@@ -148,6 +152,11 @@ public class MainFormController implements Initializable {
             PanelTilePane.setPadding(new Insets(LeftSize / 10));
             PanelTilePane.setVgap(Gap);
             PanelTilePane.setHgap(Gap);
+            
+            final double RightContentPadding = (FullScreenWidth - LeftSize) / 20;
+            RightVBox.setPadding(new Insets(RightContentPadding));
+            
+            NameLabel.setFont(Font.font(FullScreenHeight / 20));
         }
             
         for(GameCertification game : GameList){
