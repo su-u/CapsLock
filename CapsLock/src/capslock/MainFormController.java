@@ -55,7 +55,10 @@ import org.json.JSONObject;
  */
 public class MainFormController implements Initializable {
 
+    /** Constants */
     private static final String DB_FILE_NAME = "GamesInfo.json";
+    private static final double PANEL_RATIO = 0.25;
+    private static final double PANEL_GAP_RATIO = 0.03;
     
     private enum State{
         None,
@@ -132,10 +135,10 @@ public class MainFormController implements Initializable {
             LeftScrollPane.setPrefViewportWidth(LeftSize);
             LeftScrollPane.setMinViewportWidth(LeftSize);
 
-            PanelImageSideLength = LeftSize / 10 * 2;
+            PanelImageSideLength = LeftSize * PANEL_RATIO;
             
-            final double Gap = LeftSize / 12;
-            PanelTilePane.setPadding(new Insets(LeftSize / 10));
+            final double Gap = LeftSize * PANEL_GAP_RATIO;
+            PanelTilePane.setPadding(new Insets(LeftSize / 12));
             PanelTilePane.setVgap(Gap);
             PanelTilePane.setHgap(Gap);
             
