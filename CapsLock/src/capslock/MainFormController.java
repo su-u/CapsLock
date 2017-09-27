@@ -264,6 +264,8 @@ public class MainFormController implements Initializable {
         }catch(NullPointerException e){
         }
         MovieList.clear();
+        StackedImageView.setImage(null);
+        StackedMediaView.setMediaPlayer(null);
         game = null;
     }
     
