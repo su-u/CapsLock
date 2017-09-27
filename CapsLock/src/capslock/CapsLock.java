@@ -27,9 +27,9 @@ public final class CapsLock extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainForm.fxml"));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("MainForm.fxml"));
         
-        Parent root;
+        final Parent root;
 
         try {
             root = loader.load();
@@ -39,7 +39,7 @@ public final class CapsLock extends Application {
             return;
         }
         
-        MainFormController controller = (MainFormController)loader.getController();
+        final MainFormController controller = (MainFormController)loader.getController();
         stage.setScene(new Scene(root));
         stage.setOnShown(event -> controller.onLoad(event));
         stage.setTitle("CapsLock");
