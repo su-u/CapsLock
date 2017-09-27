@@ -19,7 +19,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -40,6 +39,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
@@ -76,10 +76,6 @@ public class MainFormController implements Initializable {
     private List<Media> MovieList = new ArrayList<>();
     private Iterator<Media> MovieIterator;
     private Timeline Scroller;
-    
-    ResizableMediaView GameMovieView = new ResizableMediaView();
-    ResizableImageView GameImageView = new ResizableImageView();
-
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
     
@@ -91,7 +87,8 @@ public class MainFormController implements Initializable {
     @FXML private ScrollPane LabelScroller;
     @FXML private TilePane PanelTilePane;
     @FXML private VBox RightVBox;
-    
+    @FXML private ImageView StackedImageView;
+    @FXML private MediaView StackedMediaView;
 
     public MainFormController() {
         List<GameCertification> ListBuilder = new ArrayList<>();
@@ -122,9 +119,6 @@ public class MainFormController implements Initializable {
         Duration.millis(2500),
         ae -> UpdateImage(ae)));
         ImageTimeLine.setCycleCount(Animation.INDEFINITE);
-        
-        ViewStackPane.getChildren().add(GameMovieView);
-        ViewStackPane.getChildren().add(GameImageView);
         
         Scroller = new Timeline();
         Scroller.getKeyFrames().add(new KeyFrame(Duration.seconds(25),
@@ -213,7 +207,7 @@ public class MainFormController implements Initializable {
                     DisplayState = State.Both_Image;
                     
                     ImageIterator = ImageList.iterator();
-                    GameImageView.setImage(ImageIterator.next());
+                    StackedImageView.setImage(ImageIterator.next());
                     ImageTimeLine.play();
                     SwapDisplayContentType();
                 }
@@ -250,9 +244,7 @@ public class MainFormController implements Initializable {
                 DisplayState = State.MediaOnly;
                 MovieIterator = MovieList.iterator();
                 PlayMovie(MovieIterator.next());
-
-                GameImageView.setVisible(false);
-                
+                StackedImageView.setVisible(false);
                 break;
                 
             case 0b11:
@@ -280,7 +272,7 @@ public class MainFormController implements Initializable {
         ImageTimeLine.stop();
         ImageList.clear();
         try{
-            GameMovieView.getMediaPlayer().stop();
+            StackedMediaView.getMediaPlayer().stop();
         }catch(NullPointerException e){
         }
         MovieList.clear();
@@ -300,11 +292,14 @@ public class MainFormController implements Initializable {
     
     private void UpdateImage(ActionEvent event){
         try{
-            GameImageView.setImage(ImageIterator.next());
+            StackedImageView.setImage(ImageIterator.next());
+            StackedImageView.setFitWidth(ViewStackPane.getWidth());
+            
         }catch(NoSuchElementException ex){
             if(DisplayState == State.ImageOnly){
                 ImageIterator = ImageList.iterator();
-                GameImageView.setImage(ImageIterator.next());
+                StackedImageView.setImage(ImageIterator.next());
+                StackedImageView.setFitWidth(ViewStackPane.getWidth());
             }else{
                 ImageTimeLine.stop();
                 DisplayState = State.Both_Media;
@@ -319,10 +314,10 @@ public class MainFormController implements Initializable {
     
     private void ImageSet(){
         ImageIterator = ImageList.iterator();
-        GameImageView.setImage(ImageIterator.next());
+        StackedImageView.setImage(ImageIterator.next());
+        StackedImageView.setFitWidth(ViewStackPane.getWidth());
         ImageTimeLine.play();
-
-        GameMovieView.setVisible(false);
+        StackedMediaView.setVisible(false);
     }
     
     private void PlayMovie(Media movie){
@@ -330,11 +325,12 @@ public class MainFormController implements Initializable {
         player.setOnEndOfMedia(onMovieEnd);
         player.setAutoPlay(true);
         player.setCycleCount(1);       
-        GameMovieView.setMediaPlayer(player);
+        StackedMediaView.setMediaPlayer(player);
+        StackedMediaView.setFitWidth(ViewStackPane.getWidth());
     }
     
     private void SwapDisplayContentType(){
-        GameImageView.setVisible(!GameImageView.isVisible());
-        GameMovieView.setVisible(!GameMovieView.isVisible());
+        StackedImageView.setVisible(!StackedImageView.isVisible());
+        StackedMediaView.setVisible(!StackedMediaView.isVisible());
     }
 }
