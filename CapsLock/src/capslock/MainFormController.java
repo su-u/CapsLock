@@ -277,14 +277,12 @@ public class MainFormController implements Initializable {
     
     private void UpdateImage(ActionEvent event){
         try{
-            StackedImageView.setImage(ImageIterator.next());
-            StackedImageView.setFitWidth(ViewStackPane.getWidth());
+            DisplayImage();
             
         }catch(NoSuchElementException ex){
             if(DisplayState == State.ImageOnly){
                 ImageIterator = ImageList.iterator();
-                StackedImageView.setImage(ImageIterator.next());
-                StackedImageView.setFitWidth(ViewStackPane.getWidth());
+        DisplayImage();
             }else{
                 ImageTimeLine.stop();
                 DisplayState = State.Both_Media;
@@ -299,8 +297,7 @@ public class MainFormController implements Initializable {
     
     private void ImageSet(){
         ImageIterator = ImageList.iterator();
-        StackedImageView.setImage(ImageIterator.next());
-        StackedImageView.setFitWidth(ViewStackPane.getWidth());
+        DisplayImage();
         ImageTimeLine.play();
         StackedMediaView.setVisible(false);
     }
@@ -312,6 +309,11 @@ public class MainFormController implements Initializable {
         player.setCycleCount(1);       
         StackedMediaView.setMediaPlayer(player);
         StackedMediaView.setFitWidth(ViewStackPane.getWidth());
+    }
+    
+    private void DisplayImage(){
+        StackedImageView.setImage(ImageIterator.next());
+        StackedImageView.setFitWidth(ViewStackPane.getWidth());
     }
     
     private void SwapDisplayContentType(){
