@@ -240,15 +240,13 @@ public class MainFormController implements Initializable {
                 MovieIterator = MovieList.iterator();
                 PlayMovie(MovieIterator.next());
                 StackedImageView.setVisible(false);
-                break;
-                
+                break;           
             case 0b11:
                 DisplayState = State.Both_Image;
                 ImageSet();
                 break;
-
             default:
-                System.err.println("critical ; unexpected flag");
+                LogHandler.instance.severe("Unexpected flag! Call the developer!");
         }
 
         DescriptionLabel.setPadding(Insets.EMPTY);
