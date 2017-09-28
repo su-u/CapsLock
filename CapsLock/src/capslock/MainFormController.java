@@ -32,7 +32,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -80,7 +79,6 @@ public class MainFormController implements Initializable {
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
     
-    @FXML private HBox RootHBox;
     @FXML private ScrollPane LeftScrollPane;
     @FXML private Label NameLabel;
     @FXML private Label DescriptionLabel;
