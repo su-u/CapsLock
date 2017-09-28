@@ -79,15 +79,16 @@ public class MainFormController implements Initializable {
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
     
+    /** FXML binding */
     @FXML private ScrollPane LeftScrollPane;
+        @FXML private TilePane PanelTilePane;
+    @FXML private VBox RightVBox;
+        @FXML private StackPane ViewStackPane;
+            @FXML private ImageView StackedImageView;
+            @FXML private MediaView StackedMediaView;
     @FXML private Label NameLabel;
     @FXML private Label DescriptionLabel;
-    @FXML private StackPane ViewStackPane;
-    @FXML private TilePane PanelTilePane;
-    @FXML private VBox RightVBox;
-    @FXML private ImageView StackedImageView;
-    @FXML private MediaView StackedMediaView;
-
+    
     public MainFormController() {
         List<GameCertification> ListBuilder = new ArrayList<>();
         
