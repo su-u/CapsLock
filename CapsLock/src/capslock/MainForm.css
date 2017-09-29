@@ -1,0 +1,15 @@
+#LeftTilePane{
+    -fx-background-color: gray;
+}
+
+#RightVBox{
+    -fx-background-color: grey;
+}
+
+.label{
+    -fx-text-fill: white;
+}
+
+#DescriptionLabel{
+    
+}
