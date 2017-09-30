@@ -11,6 +11,7 @@ import javafx.fxml.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.*;
@@ -137,6 +138,9 @@ public class MainFormController implements Initializable {
                 final ImageView TriggerView = (ImageView)eve.getSource();
                 onImageFocused(TriggerView);
             });
+            
+            view.setOnMouseClicked(eve -> onPanelDoubleClicked(eve));
+            
             view.setUserData(game);
             PanelTilePane.getChildren().add(view);
         }
@@ -220,12 +224,14 @@ public class MainFormController implements Initializable {
         game = null;
     }
     
-    @FXML
-    private void onGameClicked(MouseEvent ev){
-        ProcessBuilder pb = new ProcessBuilder(game.getExecutablePath().toString());
+    void onPanelDoubleClicked(MouseEvent event){
+        if(!event.getButton().equals(MouseButton.PRIMARY))return;
+        if(event.getClickCount() != 2)return;
+        
+        final ProcessBuilder pb = new ProcessBuilder(game.getExecutablePath().toString());
         pb.redirectErrorStream(true);
         try {
-            Process GameProcess = pb.start();
+            final Process GameProcess = pb.start();
         } catch (IOException ex) {
             System.out.println(ex);
         }
