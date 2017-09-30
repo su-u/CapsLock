@@ -19,19 +19,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -39,7 +32,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.WindowEvent;
@@ -154,7 +146,7 @@ public class MainFormController implements Initializable {
             if(Files.isRegularFile(game.getPanelPath())){
                 PanelImage = new Image(game.getPanelPath().toUri().toString());
             }else{
-                PanelImage = GenerateCharPanel(game.getName().charAt(0));
+                PanelImage = CharPanelGenerator.generate(game.getName().charAt(0));
                 LogHandler.instance.warning("game's UUID : " + game.getUUID().toString() + " doesn't have panel image.");
             }
             
@@ -170,24 +162,6 @@ public class MainFormController implements Initializable {
             PanelTilePane.getChildren().add(view);
         }
     }
-    
-    static private Image GenerateCharPanel(final char ch){
-        
-        final Label label = new Label(Character.toString(Character.toUpperCase(ch)));
-        label.setMinSize(125, 125);
-        label.setMaxSize(125, 125);
-        label.setPrefSize(125, 125);
-        label.setFont(Font.font(80));
-        label.setAlignment(Pos.CENTER);
-        label.setTextFill(Color.WHITE);
-        label.setBackground(new Background(new BackgroundFill(ColorSequencer.get(), CornerRadii.EMPTY, Insets.EMPTY)));
-        final Scene scene = new Scene(new Group(label));
-        final WritableImage img = new WritableImage(125, 125);
-        scene.snapshot(img);
-        return img ;
-    }
-    
-
     
     class onMovieEndClass implements Runnable{
         @Override
