@@ -15,7 +15,7 @@ import org.json.JSONObject;
  * @author RISCassembler
  */
 
-public final class GameCertification {
+final class GameCertification {
     private final UUID uuid;
     private final String name;
     private final String description;
@@ -36,16 +36,16 @@ public final class GameCertification {
         MoviesPathList = BuildImmutableArray(record.getJSONArray("movie"));
     }
     
-    public final UUID getUUID(){return uuid;}
-    public final String getName(){return name;}
-    public final String getDescription(){return description;}
-    public final Path getExecutablePath(){return ExecutablePath;}
-    public final String getVersion(){return version;}
-    public final Path getPanelPath(){return PanelPath;}
-    public final List<Path> getImagesPathList(){return ImagesPathList;}
-    public final List<Path> getMoviePathList(){return MoviesPathList;}
+    final UUID getUUID(){return uuid;}
+    final String getName(){return name;}
+    final String getDescription(){return description;}
+    final Path getExecutablePath(){return ExecutablePath;}
+    final String getVersion(){return version;}
+    final Path getPanelPath(){return PanelPath;}
+    final List<Path> getImagesPathList(){return ImagesPathList;}
+    final List<Path> getMoviePathList(){return MoviesPathList;}
     
-    public void dump(){
+    final void dump(){
         System.out.println(uuid.toString());
         System.out.println(name);
         System.out.println(description);

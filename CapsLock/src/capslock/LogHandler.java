@@ -30,12 +30,12 @@ enum LogHandler{
         logger.addHandler(handler);
     }
     
-    public final void close(){handler.close();}
-    public final void severe(String msg){logger.severe(msg);}
-    public final void warning(String msg){logger.warning(msg);}
-    public final void info(String msg){logger.info(msg);}
-    public final void config(String msg){logger.config(msg);}
-    public final void fine(String msg){logger.fine(msg);}
-    public final void finer(String msg){logger.finer(msg);}
-    public final void finest(String msg){logger.finest(msg);}
+    final void close(){handler.close();}
+    final void severe(String msg){logger.severe(msg);}
+    final void warning(String msg){logger.warning(msg);}
+    final void info(String msg){logger.info(msg);}
+    final void config(String msg){logger.config(msg);}
+    final void fine(String msg){logger.fine(msg);}
+    final void finer(String msg){logger.finer(msg);}
+    final void finest(String msg){logger.finest(msg);}
 }
