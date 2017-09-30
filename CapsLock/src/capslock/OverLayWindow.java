@@ -3,7 +3,6 @@ package capslock;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -16,24 +15,24 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class OverLayWindow {
-    private static final int closesecond=5;
+    private static final int CLOSE_SECONDS=5;
     static private int mynumber=0;
     private String warnmesse;
 
     void Exe() {
         mynumber++;
         if(mynumber==1) {
-                warnmesse="Warning1!";
+            warnmesse="Warning1!";
         }else if(mynumber==2) {
-                warnmesse="Warning2!";
+            warnmesse="Warning2!";
         }
-        Stage primaryStage = new Stage(StageStyle.TRANSPARENT);
-        StackPane root = new StackPane();
+        final Stage primaryStage = new Stage(StageStyle.TRANSPARENT);
+        final StackPane root = new StackPane();
 
-        Scene scene = new Scene(root, 300, 120);
+        final Scene scene = new Scene(root, 300, 120);
         scene.setFill(null);
 
-        Label label = new Label(warnmesse);
+        final Label label = new Label(warnmesse);
         label.setFont(new Font("Arial", 30));
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(label);
@@ -41,8 +40,7 @@ public class OverLayWindow {
 
         root.getChildren().add(borderPane);
 
-
-        Rectangle2D d = Screen.getPrimary().getVisualBounds();
+        final Rectangle2D d = Screen.getPrimary().getVisualBounds();
         primaryStage.setScene(scene);
         primaryStage.setAlwaysOnTop(true);
         primaryStage.setX(d.getWidth()-300);
@@ -50,13 +48,8 @@ public class OverLayWindow {
 
         primaryStage.show();
 
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(closesecond*1000), new EventHandler<ActionEvent>(){
-        @Override
-        public void handle(ActionEvent event) {
-            primaryStage.close();
-        }
-    }));
-    timer.setCycleCount(Timeline.INDEFINITE);
-    timer.play();
+        final Timeline timer = new Timeline(new KeyFrame(Duration.seconds(CLOSE_SECONDS), (ActionEvent event) -> primaryStage.close()));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
     }
 }
