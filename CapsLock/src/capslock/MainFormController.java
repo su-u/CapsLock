@@ -1,44 +1,23 @@
 package capslock;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.ResourceBundle;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.fxml.*;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import javafx.scene.layout.*;
+import javafx.scene.media.*;
 import javafx.scene.text.Font;
-import javafx.stage.Screen;
-import javafx.stage.WindowEvent;
+import javafx.stage.*;
 import javafx.util.Duration;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
 /**
  * FXML Controller class
@@ -72,16 +51,16 @@ public class MainFormController implements Initializable {
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
     
-    @FXML private HBox RootHBox;
+    /** FXML binding */
     @FXML private ScrollPane LeftScrollPane;
+        @FXML private TilePane PanelTilePane;
+    @FXML private VBox RightVBox;
+        @FXML private StackPane ViewStackPane;
+            @FXML private ImageView StackedImageView;
+            @FXML private MediaView StackedMediaView;
     @FXML private Label NameLabel;
     @FXML private Label DescriptionLabel;
-    @FXML private StackPane ViewStackPane;
-    @FXML private TilePane PanelTilePane;
-    @FXML private VBox RightVBox;
-    @FXML private ImageView StackedImageView;
-    @FXML private MediaView StackedMediaView;
-
+    
     public MainFormController() {
         List<GameCertification> ListBuilder = new ArrayList<>();
         
