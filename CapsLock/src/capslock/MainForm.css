@@ -1,6 +1,7 @@
 #LeftScrollPane{
     -fx-focus-color: -fx-control-inner-background;
     -fx-faint-focus-color: -fx-control-inner-background;
+    -fx-background-color: gray;
     -fx-padding: 0;
 }
 
