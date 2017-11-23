@@ -20,6 +20,10 @@ class WarningTimer {
         doing=true;
         timer = new Timeline(new KeyFrame(Duration.seconds(POPUP_SECONDS), (ActionEvent event) -> {
         	if(doing) {
+        		if(!MainFormController.GameIsAlive()) {
+        			preset();
+        			return;
+        		}
         		System.err.println("overlay");
                 counter++;
                 window.Exe(counter);

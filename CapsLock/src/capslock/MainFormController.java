@@ -74,6 +74,7 @@ public class MainFormController implements Initializable {
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
     private WarningTimer warning=new WarningTimer();
+    private static Process GameProcess;
 
     /** FXML binding */
     @FXML private ScrollPane LeftScrollPane;
@@ -250,12 +251,14 @@ public class MainFormController implements Initializable {
     void onPanelDoubleClicked(MouseEvent event){
         if(!event.getButton().equals(MouseButton.PRIMARY))return;
         if(event.getClickCount() != 2)return;
+    	System.err.println("is clicked");
+        if(GameIsAlive())return;
 
         final ProcessBuilder pb = new ProcessBuilder(game.getExecutablePath().toString());
         pb.redirectErrorStream(true);
         try {
-            final Process GameProcess = pb.start();
             warning.Start();
+            GameProcess = pb.start();
         } catch (IOException ex) {
             System.out.println(ex);
         }
@@ -305,5 +308,12 @@ public class MainFormController implements Initializable {
     private void SwapDisplayContentType(){
         StackedImageView.setVisible(!StackedImageView.isVisible());
         StackedMediaView.setVisible(!StackedMediaView.isVisible());
+    }
+    public static boolean GameIsAlive() {
+    	boolean res=false;
+    	if(GameProcess!=null) {
+        	if(GameProcess.isAlive())res=true;
+        }
+    	return res;
     }
 }
