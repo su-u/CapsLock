@@ -24,7 +24,8 @@ final class GameCertification {
     private final Path PanelPath;
     private final List<Path> ImagesPathList;
     private final List<Path> MoviesPathList;
-    
+    private final int ID;
+
     public GameCertification(JSONObject record){
         uuid = UUID.fromString(record.getString("UUID"));
         name = record.getString("name");
@@ -34,8 +35,9 @@ final class GameCertification {
         PanelPath = new File(record.getString("panel")).toPath();
         ImagesPathList = BuildImmutableArray(record.getJSONArray("image"));
         MoviesPathList = BuildImmutableArray(record.getJSONArray("movie"));
+        ID=Integer.parseInt(record.getString("ID"));
     }
-    
+
     final UUID getUUID(){return uuid;}
     final String getName(){return name;}
     final String getDescription(){return description;}
@@ -44,7 +46,8 @@ final class GameCertification {
     final Path getPanelPath(){return PanelPath;}
     final List<Path> getImagesPathList(){return ImagesPathList;}
     final List<Path> getMoviePathList(){return MoviesPathList;}
-    
+    final int getGameID() {return ID;}
+
     final void dump(){
         System.out.println(uuid.toString());
         System.out.println(name);
@@ -55,7 +58,7 @@ final class GameCertification {
         System.out.println(ImagesPathList);
         System.out.println(MoviesPathList);
     }
-    
+
     private List<Path> BuildImmutableArray(JSONArray DataArray){
         ArrayList<Path> Builder = new ArrayList();
         DataArray.forEach(file -> Builder.add(new File(file.toString()).toPath()));

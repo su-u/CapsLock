@@ -15,16 +15,15 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class OverLayWindow {
-    private static final int CLOSE_SECONDS=5;
-    static private int mynumber=0;
+    private static final int CLOSE_SECONDS=15;
     private String warnmesse;
 
-    void Exe() {
-        mynumber++;
-        if(mynumber==1) {
-            warnmesse="Warning1!";
-        }else if(mynumber==2) {
-            warnmesse="Warning2!";
+
+    void Exe(int i) {
+        if(i==1) {
+            warnmesse="プレイ開始から5分\n経過しました";
+        }else if(i==2) {
+            warnmesse="プレイ開始から10分\n経過しました";
         }
         final Stage primaryStage = new Stage(StageStyle.TRANSPARENT);
         final StackPane root = new StackPane();

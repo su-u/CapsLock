@@ -73,7 +73,7 @@ public class MainFormController implements Initializable {
     private Iterator<Media> MovieIterator;
     private boolean IsGameMapped = false;
     private final List<GameCertification> GameList;
-
+  
     private WarningTimer warning=new WarningTimer();
     private static Process GameProcess;
 
@@ -316,7 +316,6 @@ public class MainFormController implements Initializable {
         StackedMediaView.setVisible(!StackedMediaView.isVisible());
     }
 
-
     private void SwapDisplayMovie() {
     	StackedMediaView.setVisible(true);
         StackedImageView.setVisible(false);
@@ -326,6 +325,7 @@ public class MainFormController implements Initializable {
         StackedImageView.setVisible(true);
         StackedMediaView.setVisible(false);
     }
+
     public static boolean GameIsAlive() {
     	boolean res=false;
     	if(GameProcess!=null) {
