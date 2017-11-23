@@ -197,7 +197,7 @@ public class MainFormController implements Initializable {
         if(game != null)ReleasePreviousGameContents();
 
         game = (GameCertification)view.getUserData();
-        NameLabel.setText(game.getName());
+        NameLabel.setText("[P-"+String.valueOf(game.getGameID())+"]"+game.getName());
         DescriptionLabel.setText(game.getDescription());
 
         byte Flags = 0;
